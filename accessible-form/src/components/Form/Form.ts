@@ -1,12 +1,21 @@
+import react from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import FormProps from './form.interface';
+// import FormProps from './form.interface';
 
-const ContactForm = () => {
+
+// const ContactForm = (): FormProps => {
+const ContactForm: React.FC<FormProps> = ({
+    label,
+    value,
+    ...props,
+}:FormProps) => {
     return (
-        <div className="mb-3">
+        <Form className="mb-3">
             <Row className="g-2">
                 <Col md>
                     {/* Email input */}
@@ -22,6 +31,20 @@ const ContactForm = () => {
                 </Col>
             </Row>
             
+            {/* Password Inputs */}
+            <Row className="g-2">
+                <Col md>
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control type="password" placeholder="Password" />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicPasswordConfirm">
+                    <Form.Label>Confirm Password</Form.Label>
+                    <Form.Control type="password" placeholder="Confirm Password" />
+                </Form.Group>
+                </Col>
+            </Row>
+
             {/*  input */}
             <FloatingLabel controlId="floatingSelectGrid" label="Works with selects">
                 <Form.Select aria-label="What topic is your inquiry regarding?">
@@ -31,6 +54,17 @@ const ContactForm = () => {
                     <option value="3">Concern</option>
                 </Form.Select>
             </FloatingLabel>
+
+            {/* Checkboxes */}
+            {['checkbox', 'radio'].map((type) => (
+                <div key={`default-${type}`} className="mb-3">
+                    <Form.Check 
+                        type={type}
+                        id={`default-${type}`}
+                        label={`default ${type}`}
+                    />
+                </div>
+            ))}
 
             {/* Textarea input */}
             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
@@ -49,7 +83,7 @@ const ContactForm = () => {
             <Button variant="primary" type="submit">
                 Submit
             </Button>
-        </div>
+        </Form>
     )
 };
 
